@@ -31,8 +31,13 @@ object SimpleTextMessage
   override def convertToMessage(update: TUpdate): Try[TextMessage] = {
     logger.info("Converting TUpdate case class to TextMessage case class")
     logger.debug(s"TUpdate: $update")
+
     val result = for {
-      msg <- update.message
+      msg <- update match {
+        case a if a.message.isDefined => a.message
+        case b if b.edited_message.isDefined => b.edited_message
+        case _ => Option.empty
+      }
       text <- msg.text
     } yield TextMessage(msg.chat.id, text, msg.message_id)
 
