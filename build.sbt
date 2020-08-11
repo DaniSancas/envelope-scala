@@ -1,5 +1,5 @@
 ThisBuild / organization := "io.github.danisancas"
-ThisBuild / version      := "0.1-SNAPSHOT"
+ThisBuild / version      := "0.1.0"
 
 name := "envelope"
 
